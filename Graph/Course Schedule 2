@@ -1,0 +1,51 @@
+class Solution {
+public:
+   vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+   vector<int> graph[numCourses];
+   vector<int> ans(numCourses);
+    if (numCourses == 0)
+       return ans;
+    
+    if (prerequisites.empty())
+        {
+         for (int i = 0;i<numCourses;i++)
+        ans[i] = i;
+        return ans;
+        }
+
+    for(auto v:prerequisites){
+        graph[v[0]].push_back(v[1]);
+    }
+    
+    vector <int> indegree(numCourses,0);
+    queue <int> q;
+    vector <int> topo;
+    for(int i=0;i<numCourses;i++){
+        for(auto it:graph[i]){
+            indegree[it]++;
+        }
+    }
+    for(int i=0;i<numCourses;i++){
+        if(indegree[i]==0)
+            q.push(i);
+    }
+    int index=0;
+    while(!q.empty()){
+        int node=q.front();
+          q.pop();
+        ans[index]=node;
+        index++;
+        topo.push_back(node);
+        for(auto it:graph[node]){
+            indegree[it]--;
+            if(indegree[it]==0)
+                q.push(it);
+        }
+        
+    }        
+    if(index!=numCourses)return {};
+    reverse(ans.begin(),ans.end());
+return ans;
+    
+}
+};
