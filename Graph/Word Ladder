@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int ladderLength(string Word, string end, vector<string>& list) {
+        int n=list.size();
+        unordered_set<string>st;
+        map<string,bool>visited;
+        bool present=false;
+        for(auto x:list)
+        { visited[x]=false;
+          st.insert(x);
+         if(end==x) present=true;
+        }
+        if(present ==false) return 0;
+        
+        queue<pair<string,int>>q;
+        q.push({Word,0});
+        visited[Word]=true;
+        while(!q.empty())
+        { 
+          auto curr=q.front();
+                q.pop();
+         string temp=curr.first;
+         int dist=curr.second;
+          if(temp==end) return dist+1;
+         for(int i=0;i<temp.size();i++)
+         { 
+          for(int j=0;j<26;j++)
+          {  char cow=j+'a';
+             string var=temp;
+             var[i]=cow;
+           if(st.find(var)!=st.end()&&visited[var]==false)
+             { q.push({var,dist+1});
+               visited[var]=true;
+             }
+         }
+
+        }
+        }
+     return 0;
+        
+    }
+};
