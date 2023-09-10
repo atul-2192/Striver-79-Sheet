@@ -1,0 +1,27 @@
+ void bottom(Node *root, vector<int> &v,int val)
+  { queue<pair<Node*,int>> q;
+  map<int,int>mp;
+   q.push({root,val});
+   while(q.empty()==false)
+   {
+      auto curr=q.front();
+      Node *temp=curr.first;
+      int k=curr.second;
+      mp[k]=temp->data;
+      q.pop();
+      if(temp->left!=NULL)
+      q.push({temp->left,k-1});
+      if(temp->right!=NULL)
+      q.push({temp->right,k+1});
+      
+      
+   }
+   for(auto x:mp)
+   {
+       v.push_back(x.second);
+   }
+     
+     
+     
+      
+  }
