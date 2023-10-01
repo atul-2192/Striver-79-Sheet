@@ -1,0 +1,36 @@
+ bool f(int mid, int cows, vector<int>&stalls)
+    {
+        int count=1;
+        int lastCowPosition=stalls[0];
+        
+        for(int i=0;i<stalls.size();i++)
+        {
+            if(stalls[i]>= lastCowPosition+mid)
+            {
+                lastCowPosition=stalls[i];
+                count++;
+            }
+        }
+        if(count>=cows) return true;
+        
+        return false;
+    }
+
+    int solve(int n, int k, vector<int> &stalls) {
+
+      sort(stalls.begin(),stalls.end());
+      int low=1,high=stalls[n-1],ans=-1;
+      
+      while(low<=high)
+      {
+          int mid=low+(high-low)/2;
+          
+          if(f(mid,k,stalls)==true)
+          {
+              ans=mid;
+              low=mid+1;
+          }
+          else high=mid-1;
+      }
+        return ans;     
+    }
