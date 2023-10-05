@@ -1,0 +1,14 @@
+   pair<int,int> f(TreeNode* root)
+    {
+        if(!root) return {INT_MIN,0};
+      
+         auto lh=f(root->left);
+         auto rh=f(root->right);
+        int ans=max(lh.first,max(rh.first, max(0,lh.second)+max(0,rh.second)+root->val));
+        return {ans,max(0,max(lh.second,rh.second))+root->val};
+    }
+    int maxPathSum(TreeNode* root) {
+        
+     auto ans=   f(root);
+        return max(ans.first,ans.second);
+    }
