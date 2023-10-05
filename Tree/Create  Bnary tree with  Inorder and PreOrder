@@ -1,0 +1,21 @@
+ TreeNode* f(vector<int>& pre, vector<int>& in,int is,int ie,int &index)
+    {
+        if(is>ie) return NULL;
+        TreeNode*  curr=new TreeNode(pre[index++]); 
+        int inIndex;
+        for(int i=is;i<=ie;i++)
+        {
+            if(in[i]==curr->val)
+            {
+                inIndex=i;
+                break;
+            }
+        }
+        curr->left=f(pre,in,is,inIndex-1,index);
+        curr->right=f(pre,in,inIndex+1,ie,index);
+        return curr;
+    }
+    TreeNode* buildTree(vector<int>& pre, vector<int>& in) {
+        int n=pre.size()-1;
+        int index=0;
+        re
